@@ -1,49 +1,97 @@
-# Financial-Analysis-of-the-Moroccan-Government-2004-2023-
-Introduction
-The objective of this project is to analyze and forecast the financial data of the Moroccan government from 2004 to 2023. This analysis involves examining key financial indicators, detecting anomalies, and predicting future trends using various time series models. The dataset includes the following key financial variables:
 
-Variables
-Date:
-The date on which the financial data was recorded. This serves as the time index for the dataset.
 
-IS (Impôt sur les Sociétés - Corporate Tax):
-This variable represents the taxes levied on corporate profits. It is a major source of government revenue.
+# **Financial-Analysis-of-the-Moroccan-Government-2004-2023**
 
-IR (Impôt sur le Revenu - Income Tax):
-The tax collected on individual income, which includes salaries, wages, and other earnings. It is another crucial source of state revenue.
+## **1. Objectif du Projet**
+Ce projet vise à analyser et prévoir les données financières du gouvernement marocain de 2004 à 2023. Les prévisions sont effectuées à l'aide de divers modèles de séries temporelles : **ARIMA**, **VAR**, **LSTM**, ainsi que la détection des anomalies avec **Isolation Forest**.
 
-TVA (Taxe sur la Valeur Ajoutée - Value-Added Tax):
-A consumption tax placed on a product whenever value is added at each stage of the supply chain, from production to the point of sale.
+## **2. Données Utilisées**
+Le projet repose sur des données financières comprenant :
+- **IS** : Impôt sur les sociétés
+- **IR** : Impôt sur le revenu
+- **TVA** : Taxe sur la valeur ajoutée
+- **TIC** : Taxe intérieure de consommation
+- **BetS** : Dépenses en biens et services
+- **intD** : Intérêt de la dette
+- **COMP** : Compensation
 
-TIC (Taxe Intérieure de Consommation - Domestic Consumption Tax):
-This tax is imposed on specific goods, often including fuel, alcohol, and tobacco, and is a significant component of indirect taxation.
+Les données sont enrichies par la création de nouvelles colonnes pour le **total des recettes mensuelles** et les **dépenses mensuelles**.
 
-BetS (Dépenses en Biens et Services - Expenditure on Goods and Services):
-Government spending on goods and services necessary for public service delivery, including healthcare, education, and infrastructure.
+## **3. Bibliothèques Utilisées**
 
-intD (Intérêt de la Dette - Debt Interest):
-The interest payments made by the government on its outstanding debt. This variable reflects the cost of borrowing and managing national debt.
+Le projet utilise les bibliothèques suivantes :
 
-COMP (Compensation):
-This represents the total compensation, including salaries and wages, paid to government employees. It is a significant component of public expenditure.
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.ensemble import IsolationForest
+from statsmodels.tsa.api import VAR
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+from sklearn.linear_model import LinearRegression
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+from sklearn.preprocessing import MinMaxScaler
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.stats.stattools import jarque_bera
+from statsmodels.stats.diagnostic import acorr_ljungbox
+import warnings
+```
 
-Methodology
-In this project, we used the following methodologies:
+## **4. Architecture du Projet**
 
-Descriptive Analysis:
-To identify general trends and correlations in the historical financial data.
+### **Étapes Principales :**
+1. **Préparation des données** : 
+   - Chargement des données depuis un fichier Excel.
+   - Nettoyage et transformation (formatage des dates, ajout de colonnes calculées).
+   
+2. **Modélisation** :
+   - **ARIMA** : Pour les prévisions univariées des séries temporelles.
+   - **VAR** : Pour modéliser les relations entre plusieurs variables.
+   - **LSTM** : Utilisation de réseaux de neurones récurrents pour capturer les tendances non linéaires.
+   - **SARIMA** : Pour les prévisions univariées des séries temporelles saisonnières.
+   - **Isolation Forest** : Détection des anomalies dans les données financières.
 
-Anomaly Detection:
-The Isolation Forest algorithm was applied to automatically detect anomalies in the data, which could indicate irregularities or significant events.
+3. **Évaluation** :
+   - Utilisation de métriques telles que **RMSE** (Root Mean Squared Error) et **MAPE** (Mean Absolute Percentage Error) pour évaluer la performance des modèles.
 
-Predictive Modeling:
-Time series forecasting models such as ARIMA, VAR, and LSTM were used to predict future financial trends based on the historical data.
+4. **Détection des Anomalies** :
+   - Identification des irrégularités dans les données à l'aide du modèle **Isolation Forest**.
 
-Evaluation Metrics
-Each model was evaluated using the following performance metrics:
+## **5. Résultats**
+- **Prévisions** : Les modèles ARIMA, VAR et LSTM fournissent des prévisions des recettes et des dépenses mensuelles.
+- **Anomalies** : Les anomalies dans les données financières sont détectées, permettant d'améliorer la gestion des risques.
 
-RMSE (Root Mean Squared Error):
-A measure of the differences between predicted and observed values, indicating the model's accuracy.
+## **6. Comment Utiliser ce Projet**
+1. Clone ce repository :
+   ```bash
+   git clone https://github.com/ton-repository/Financial-Analysis-of-the-Moroccan-Government-2004-2023.git
+   cd Financial-Analysis-of-the-Moroccan-Government-2004-2023
+   ```
 
-MAPE (Mean Absolute Percentage Error):
-A measure of prediction accuracy in forecasting models, showing the average absolute percentage difference between predicted and actual values.
+2. Installe les dépendances requises (via `requirements.txt`) :
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Lance le notebook pour exécuter l'analyse et les prévisions :
+   ```bash
+   jupyter notebook
+   ```
+
+## **7. Structure des Fichiers**
+- `notebooks/`: Contient les notebooks Jupyter pour l'analyse et les prévisions.
+- `data/`: Contient les jeux de données utilisés.
+- `requirements.txt`: Liste des bibliothèques nécessaires pour le projet.
+
+## **8. Technologies Utilisées**
+- **Python** : Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, TensorFlow,statsmodel
+- **Modèles de prévision** : ARIMA, VAR, LSTM,SARIMA
+- **Détection d'anomalies** : Isolation Forest
+- **Jupyter Notebook** : Pour la visualisation et l'analyse
+
+## **9. Contributeurs**
+- Moussaab : Créateur et développeur du projet.
+
